@@ -2,7 +2,7 @@ GO-SUGARSYNC
 ============
 
  * Github: https://github.com/jbuchbinder/go-sugarsync
- * Twitter: https://twitter.com/jbuchbinder
+ * Twitter: [@jbuchbinder](https://twitter.com/jbuchbinder)
 
 Go bindings for Sugarsync clients.
 
