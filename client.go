@@ -241,3 +241,38 @@ func (self *SugarsyncClient) UploadFile(fileLocation string, file string) (e err
 
 	return
 }
+
+func (self *SugarsyncClient) CreateNewFolder(folder string, folderName string) (f string, e error) {
+	if self.AuthToken == "" {
+		e = errors.New("Auth token must be retrieved first")
+		return
+	}
+	client := http.Client{}
+	rObj := Folder{DisplayName: folderName}
+	payload, err := xml.Marshal(rObj)
+	if self.Debug {
+		fmt.Println("Posting to " + folder + " with:\n" + string(payload))
+	}
+	req, err := http.NewRequest("POST", folder, strings.NewReader(string(payload)))
+	req.Header.Set("Authorization", self.AuthToken)
+
+	if self.Debug {
+		dump, _ := httputil.DumpRequestOut(req, true)
+		fmt.Println(string(dump))
+	}
+
+	res, err := client.Do(req)
+	if err != nil {
+		e = err
+		return
+	}
+	defer res.Body.Close()
+
+	if self.Debug {
+		dump, _ := httputil.DumpResponse(res, true)
+		fmt.Println(string(dump))
+	}
+
+	f = res.Header.Get("Location")
+	return
+}

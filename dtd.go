@@ -3,6 +3,10 @@
 
 package sugarsync
 
+import (
+	"encoding/xml"
+)
+
 const (
 	ACCESS_KEY_ID      = "MzI1MzA4MjEzNDI4MTA0NzczNjI"
 	APP_ID             = "/sc/3253082/350_101900713"
@@ -48,6 +52,11 @@ type Collection struct {
 	RefLink     string `xml:"ref" json:"ref"`
 	IconId      int64  `xml:"iconId" json:"iconId"`
 	Contents    string `xml:"contents" json:"contents"`
+}
+
+type Folder struct {
+	XMLName     xml.Name `xml:"folder"`
+	DisplayName string   `xml:"displayName"`
 }
 
 // https://www.sugarsync.com/dev/api/method/get-contacts.html
